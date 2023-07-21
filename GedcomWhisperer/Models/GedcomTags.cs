@@ -12,6 +12,7 @@ public static class GedcomTags
     public static readonly string HeaderTag = "HEAD";
     public static readonly string SourceTag = "SOUR";
     public static readonly string IndividualRecordTag = "INDI";
+    public static readonly string FamilyRecordTag = "FAM";
 
     public static TagObject GetSection(string level, string tag, List<string> dataLines)
     {
@@ -70,7 +71,7 @@ public static class GedcomTags
     {
         string exactPattern = $@"({level}) ";
 
-        if ((tag == IndividualRecordTag || tag == SubmitTag) && level == "0")
+        if ((tag == IndividualRecordTag || tag == SubmitTag || tag == FamilyRecordTag) && level == "0")
         {
             exactPattern += $"(.+) ({tag})";
         }
@@ -90,12 +91,28 @@ public static class GedcomTags
             Match exactMatch = Regex.Match(dataLine, exactPattern);
             Match genericMatch = Regex.Match(dataLine, genericPattern);
 
-            if (exactMatch.Success)
+            if (exactMatch.Success && readSubProperties)
+            {
+                result.Add(currentResult);
+                currentResult = new TagObject();
+                if (exactMatch.Groups.Count == 4)
+                {
+                    if ((tag == IndividualRecordTag || tag == SubmitTag || tag == FamilyRecordTag) && level == "0")
+                    {
+                        currentResult.Value = exactMatch.Groups[2].Value;
+                    }
+                    else
+                    {
+                        currentResult.Value = exactMatch.Groups[3].Value;
+                    }
+                }
+            }
+            else if (exactMatch.Success)
             {
                 readSubProperties = true;
                 if (exactMatch.Groups.Count == 4)
                 {
-                    if ((tag == IndividualRecordTag || tag == SubmitTag) && level == "0")
+                    if ((tag == IndividualRecordTag || tag == SubmitTag || tag == FamilyRecordTag) && level == "0")
                     {
                         currentResult.Value = exactMatch.Groups[2].Value;
                     }

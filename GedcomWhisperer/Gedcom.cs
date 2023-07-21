@@ -13,6 +13,7 @@ public class Gedcom
     public readonly Header Header = new Header();
     public readonly IndividualRecords IndividualRecords = new IndividualRecords();
     public readonly Submitter Submitter = new Submitter();
+    public readonly FamilyRecords FamilyRecords = new FamilyRecords();
 
  
     public Gedcom()
@@ -20,6 +21,7 @@ public class Gedcom
         LoadStringEvent += Header.HandleLoadStringEvent;
         LoadStringEvent += Submitter.HandleLoadStringEvent;
         LoadStringEvent += IndividualRecords.HandleLoadStringEvent;
+        LoadStringEvent += FamilyRecords.HandleLoadStringEvent;
     }
 
     public void LoadFile(string filePath)
