@@ -10,10 +10,11 @@ public class Gedcom
     
     private string _rawData;
 
-    public readonly Header Header = new Header();
-    public readonly IndividualRecords IndividualRecords = new IndividualRecords();
-    public readonly Submitter Submitter = new Submitter();
-    public readonly FamilyRecords FamilyRecords = new FamilyRecords();
+    public readonly Header Header = new ();
+    public readonly IndividualRecords IndividualRecords = new ();
+    public readonly Submitter Submitter = new ();
+    public readonly FamilyRecords FamilyRecords = new ();
+    public readonly MultimediaObjectRecords MultimediaObjectRecords = new ();
 
  
     public Gedcom()
@@ -22,6 +23,7 @@ public class Gedcom
         LoadStringEvent += Submitter.HandleLoadStringEvent;
         LoadStringEvent += IndividualRecords.HandleLoadStringEvent;
         LoadStringEvent += FamilyRecords.HandleLoadStringEvent;
+        LoadStringEvent += MultimediaObjectRecords.HandleLoadStringEvent;
     }
 
     public void LoadFile(string filePath)

@@ -10,8 +10,8 @@ public class Birthday
 
     public Birthday(TagObject parentObject)
     {
-        var birthdayObject = GedcomTags.GetSection("1", "BIRT", parentObject.InnerTags);
-        var nameObject = GedcomTags.GetSection("1", "NAME", parentObject.InnerTags);
+        var birthdayObject = GedcomTags.GetSection("1", GedcomTags.IndividualTagBirt, parentObject.InnerTags);
+        var nameObject = GedcomTags.GetSection("1", GedcomTags.IndividualTagName, parentObject.InnerTags);
         
         if (birthdayObject.InnerTags.Count != 0)
         {
@@ -19,14 +19,14 @@ public class Birthday
             {
                 string format = "d MMM yyyy";
                 DateOnly.TryParseExact(
-                    GedcomTags.GetSection("2", "DATE", birthdayObject.InnerTags).Value,
+                    GedcomTags.GetSection("2", GedcomTags.DateTag, birthdayObject.InnerTags).Value,
                     format,
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None,
                     out var date);
 
                 Date = date;
-                Place = GedcomTags.GetSection("2", "PLACE", birthdayObject.InnerTags).Value;
+                Place = GedcomTags.GetSection("2", GedcomTags.IndividualTagPlace, birthdayObject.InnerTags).Value;
                 Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, nameObject.InnerTags)
                     .Select(x => x.Value).ToList();
 
@@ -35,13 +35,13 @@ public class Birthday
             {
                 string format = "MMM d yyyy";
 
-                DateTime.TryParseExact(GedcomTags.GetSection("2", "DATE", birthdayObject.InnerTags).Value, format, null,
+                DateTime.TryParseExact(GedcomTags.GetSection("2", GedcomTags.DateTag, birthdayObject.InnerTags).Value, format, null,
                     DateTimeStyles.None,
                     out var dateTime);
                 DateOnly date = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
 
                 Date = date;
-                Place = GedcomTags.GetSection("2", "PLACE", birthdayObject.InnerTags).Value;
+                Place = GedcomTags.GetSection("2", GedcomTags.DateTag, birthdayObject.InnerTags).Value;
                 Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, nameObject.InnerTags)
                     .Select(x => x.Value).ToList();
             }

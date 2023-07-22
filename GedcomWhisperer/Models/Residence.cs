@@ -8,9 +8,9 @@ public class Residence
 
     public Residence(TagObject parentTagObject)
     {
-        var residenceObjct = GedcomTags.GetSection("1", "RESI", parentTagObject.InnerTags);
-        Date = GedcomTags.GetSection("2", "DATE", residenceObjct.InnerTags).Value;
-        Place = GedcomTags.GetSection("2", "PLAC", residenceObjct.InnerTags).Value;
+        var residenceObjct = GedcomTags.GetSection("1", GedcomTags.ResidenceTagResi, parentTagObject.InnerTags);
+        Date = GedcomTags.GetSection("2", GedcomTags.DateTag, residenceObjct.InnerTags).Value;
+        Place = GedcomTags.GetSection("2", GedcomTags.IndividualTagPlace, residenceObjct.InnerTags).Value;
         Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, residenceObjct.InnerTags)
             .Select(x => x.Value).ToList();
     }

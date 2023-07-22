@@ -8,8 +8,8 @@ public class MarriageDetails
 
     public MarriageDetails(TagObject marriageTagObject)
     {
-        Date = GedcomTags.GetSection("2", "DATE", marriageTagObject.InnerTags).Value;
-        Place = GedcomTags.GetSection("2", "PLAC", marriageTagObject.InnerTags).Value;
-        Source = GedcomTags.GetSection("2", "SOUR", marriageTagObject.InnerTags).Value;
+        Date = GedcomTags.GetSection("2", GedcomTags.DateTag, marriageTagObject.InnerTags).Value;
+        Place = GedcomTags.GetSection("2", GedcomTags.IndividualTagPlace, marriageTagObject.InnerTags).Value;
+        Source = GedcomTags.GetSection("2", GedcomTags.SourceTag, marriageTagObject.InnerTags).Value;
     }
 }

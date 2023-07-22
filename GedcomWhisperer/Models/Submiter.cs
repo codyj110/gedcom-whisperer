@@ -11,6 +11,6 @@ public class Submitter
         var dataLines = e.RawDataString.Split("\r\n").ToList();
 
         var submitObject = GedcomTags.GetSection(_level, _tag, dataLines);
-        Name = GedcomTags.GetSection("1", "NAME", submitObject.InnerTags).Value;
+        Name = GedcomTags.GetSection("1", GedcomTags.IndividualTagName, submitObject.InnerTags).Value;
     }
 }

@@ -2,7 +2,7 @@
 
 public class FamilyRecords
 {
-    private string _tag = "FAM";
+    private string _tag = GedcomTags.FamilyTagFam;
     private string _level = "0";
     public List<Family> Families = new List<Family>();
 

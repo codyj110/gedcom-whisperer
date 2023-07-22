@@ -4,7 +4,7 @@ namespace GedcomWhisperer.Models;
 
 public class IndividualRecords
 {
-    private string _tag = GedcomTags.IndividualRecordTag;
+    private string _tag = GedcomTags.IndividualTagIndi;
     private string _level = "0";
     public List<IndividualRecord> IndividualRecordList { get; set; } = new List<IndividualRecord>();
     

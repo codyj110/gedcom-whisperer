@@ -9,10 +9,10 @@ public class Name
 
     public Name(TagObject parentObject)
     {
-        var nameObject = GedcomTags.GetSection("1", "NAME", parentObject.InnerTags);
+        var nameObject = GedcomTags.GetSection("1", GedcomTags.IndividualTagName, parentObject.InnerTags);
         Value = nameObject.Value;
-        GivenName = GedcomTags.GetSection("2", "GIVN", nameObject.InnerTags).Value;
-        Surname = GedcomTags.GetSection("2", "SURN", nameObject.InnerTags).Value;
+        GivenName = GedcomTags.GetSection("2", GedcomTags.GivenTagGvn, nameObject.InnerTags).Value;
+        Surname = GedcomTags.GetSection("2", GedcomTags.SurnameTagSurn, nameObject.InnerTags).Value;
         Source = GedcomTags.GetSections("2", GedcomTags.SourceTag, nameObject.InnerTags).Select(x => x.Value).ToList();
     }
     

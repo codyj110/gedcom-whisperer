@@ -4,32 +4,8 @@ using System.Security;
 
 namespace GedcomWhisperer.Models;
 
-// 0 @I180122401009@ INDI
-//  1 NAME Cody Ross /Johnson/
-//   2 GIVN Cody Ross
-//   2 SURN Johnson
-//   2 SOUR @S425541580@
-//    3 _APID 1,70802::750759
-//   2 SOUR @S474978771@
-//    3 _APID 1,62209::155258866
-//  1 SEX M
-//  1 FAMC @F5@
-//  1 FAMS @F73@
-//  1 BIRT
-//   2 DATE 11 Jul 1985
-//   2 PLAC New Albany, Floyd, Indiana, USA
-//   2 SOUR @S474978771@
-//    3 _APID 1,62209::155258866
-//  1 RESI
-//   2 DATE 2002-2020
-//   2 PLAC Floyds Knobs, Indiana, USA
-//   2 SOUR @S474978771@
-//    3 _APID 1,62209::155258866
-
 public class IndividualRecord
 {
-    private string _tag = GedcomTags.IndividualRecordTag;
-    private string _level = "0";
     public Name Name { get; set; }
     public string Sex { get; set; }
     public List<string> Families { get; set; }
@@ -44,7 +20,7 @@ public class IndividualRecord
         extractFamilies(individualRecordObject);
         Name = new Name(individualRecordObject);
         Birthday = new Birthday(individualRecordObject);
-        Sex = GedcomTags.GetSection("1", "SEX", individualRecordObject.InnerTags).Value;
+        Sex = GedcomTags.GetSection("1", GedcomTags.IndividualTagSex, individualRecordObject.InnerTags).Value;
     }
     
     public override bool Equals(object obj)
@@ -91,9 +67,9 @@ public class IndividualRecord
     
     private  void extractFamilies(TagObject tagObject)
     {
-        Families = GedcomTags.GetSections("1", "FAMS", tagObject.InnerTags)
+        Families = GedcomTags.GetSections("1", GedcomTags.IndividualTagFams, tagObject.InnerTags)
             .Select(x => x.Value).ToList();
-        ChildFamilyId = GedcomTags.GetSection("1", "FAMC", tagObject.InnerTags).Value;
+        ChildFamilyId = GedcomTags.GetSection("1", GedcomTags.IndividualTagFamc, tagObject.InnerTags).Value;
     }
     
 }
