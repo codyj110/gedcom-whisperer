@@ -15,15 +15,9 @@ public class FamilyRecords
 
         foreach (var tagObject in famRecordObject)
         {
-            var newFamily = new Family
-            {
-                Id = tagObject.Value,
-                HusbandId = GedcomTags.GetSection("1", "HUSB", tagObject.InnerTags).Value,
-                WifeId = GedcomTags.GetSection("1", "WIFE", tagObject.InnerTags).Value,
-                ChildrenIds = GedcomTags.GetSections("1", "CHIL", tagObject.InnerTags).Select( x => x.Value).ToList()
-            };
+            var newFamily = new Family(tagObject);    
             
-            this.Families.Add(newFamily);
+            Families.Add(newFamily);
         }
         
     }

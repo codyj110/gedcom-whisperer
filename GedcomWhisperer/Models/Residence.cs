@@ -5,6 +5,15 @@ public class Residence
     public string Date { get; set; }
     public string Place { get; set; }
     public List<string> Sources { get; set; }
+
+    public Residence(TagObject parentTagObject)
+    {
+        var residenceObjct = GedcomTags.GetSection("1", "RESI", parentTagObject.InnerTags);
+        Date = GedcomTags.GetSection("2", "DATE", residenceObjct.InnerTags).Value;
+        Place = GedcomTags.GetSection("2", "PLAC", residenceObjct.InnerTags).Value;
+        Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, residenceObjct.InnerTags)
+            .Select(x => x.Value).ToList();
+    }
     
     public override bool Equals(object obj)
     {

@@ -1,10 +1,52 @@
-﻿namespace GedcomWhisperer.Models;
+﻿using System.Globalization;
+
+namespace GedcomWhisperer.Models;
 
 public class Birthday
 {
     public DateOnly Date { get; set; }
     public string Place { get; set; }
     public List<string> Sources { get; set; }
+
+    public Birthday(TagObject parentObject)
+    {
+        var birthdayObject = GedcomTags.GetSection("1", "BIRT", parentObject.InnerTags);
+        var nameObject = GedcomTags.GetSection("1", "NAME", parentObject.InnerTags);
+        
+        if (birthdayObject.InnerTags.Count != 0)
+        {
+            try
+            {
+                string format = "d MMM yyyy";
+                DateOnly.TryParseExact(
+                    GedcomTags.GetSection("2", "DATE", birthdayObject.InnerTags).Value,
+                    format,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out var date);
+
+                Date = date;
+                Place = GedcomTags.GetSection("2", "PLACE", birthdayObject.InnerTags).Value;
+                Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, nameObject.InnerTags)
+                    .Select(x => x.Value).ToList();
+
+            }
+            catch (FormatException exception)
+            {
+                string format = "MMM d yyyy";
+
+                DateTime.TryParseExact(GedcomTags.GetSection("2", "DATE", birthdayObject.InnerTags).Value, format, null,
+                    DateTimeStyles.None,
+                    out var dateTime);
+                DateOnly date = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
+
+                Date = date;
+                Place = GedcomTags.GetSection("2", "PLACE", birthdayObject.InnerTags).Value;
+                Sources = GedcomTags.GetSections("2", GedcomTags.SourceTag, nameObject.InnerTags)
+                    .Select(x => x.Value).ToList();
+            }
+        }
+    }
     
     public override bool Equals(object obj)
     {
