@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GedcomWhisperer", "GedcomWhisperer\GedcomWhisperer.csproj", "{725F0C57-E8F2-4ED5-940C-22F5690BC6AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GedcomWhispererTests", "GedcomWhispererTests\GedcomWhispererTests.csproj", "{FFD01F56-6C6D-4B69-9604-0D1F3C860B52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{725F0C57-E8F2-4ED5-940C-22F5690BC6AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{725F0C57-E8F2-4ED5-940C-22F5690BC6AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{725F0C57-E8F2-4ED5-940C-22F5690BC6AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{725F0C57-E8F2-4ED5-940C-22F5690BC6AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD01F56-6C6D-4B69-9604-0D1F3C860B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD01F56-6C6D-4B69-9604-0D1F3C860B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD01F56-6C6D-4B69-9604-0D1F3C860B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD01F56-6C6D-4B69-9604-0D1F3C860B52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
