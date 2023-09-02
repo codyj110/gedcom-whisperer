@@ -1,8 +1,9 @@
-using GedcomWhisperer;
+﻿using GedcomWhisperer;
 
 namespace ReadFileTests;
 
-public class FileReaderTests
+
+public class HeaderTests
 {
     [Fact]
     public void LoadsFileAsString()
@@ -12,13 +13,9 @@ public class FileReaderTests
         var testFile = "gedcomSampleFile.GED";
         
         // act
-        var fileString ="";
-        gedcomDoc.ParseFileStringEvent += (sender, args) =>
-        {
-            fileString = args.FileString;
-            // assert
-            Assert.NotEmpty(fileString);
-        };
         gedcomDoc.LoadGedcomFile(testFile);
+        
+        // assert
+        Assert.NotEmpty(gedcomDoc._Header.HeaderLines);
     }
 }

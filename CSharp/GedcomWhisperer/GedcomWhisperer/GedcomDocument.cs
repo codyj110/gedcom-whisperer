@@ -9,12 +9,17 @@ public delegate void ParseFileStringEventHandler(object sender, ParseFileEventAr
 public class GedcomDocument
 {
     private readonly FileReader _fileReader;
+    public Header _Header = new ();
+    public Individuals _Individuals = new ();
     public event ParseFileStringEventHandler ParseFileStringEvent;
     
     public GedcomDocument()
     {
         _fileReader = new FileReader();
         _fileReader.FileStringLoadedEvent += FileStringLoadedEventHandler;
+
+        ParseFileStringEvent += _Header.ParseFileStringEventHandler;
+        ParseFileStringEvent += _Individuals.ParseFileStringEventHandler;
     }
 
     public void LoadGedcomFile(string filePath)
